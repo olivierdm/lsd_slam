@@ -118,7 +118,11 @@ void LiveSLAMWrapper::newImageCallback(const cv::Mat& img, Timestamp imgTime)
 	if (img.channels() == 1)
 		grayImg = img;
 	else
-		cvtColor(img, grayImg, CV_RGB2GRAY);
+#if OPENCV3
+	cvtColor(img, grayImg, cv::COLOR_RGB2GRAY);
+#else
+	cvtColor(img, grayImg, CV_RGB2GRAY);
+#endif
 	
 
 	// Assert that we work with 8 bit images

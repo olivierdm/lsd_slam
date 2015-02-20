@@ -1111,13 +1111,21 @@ void DepthMap::updateKeyframe(std::deque< std::shared_ptr<Frame> > referenceFram
 	{
 		cv::Mat keyFrameImage(activeKeyFrame->height(), activeKeyFrame->width(), CV_32F, const_cast<float*>(activeKeyFrameImageData));
 		keyFrameImage.convertTo(debugImageHypothesisHandling, CV_8UC1);
-		cv::cvtColor(debugImageHypothesisHandling, debugImageHypothesisHandling, CV_GRAY2RGB);
+#if OPENCV3
+	cv::cvtColor(debugImageHypothesisHandling,  debugImageHypothesisHandling, cv::COLOR_GRAY2RGB);
+#else
+	cv::cvtColor(debugImageHypothesisHandling, debugImageHypothesisHandling, CV_GRAY2RGB);
+#endif
 
 		cv::Mat oldest_refImage(oldest_referenceFrame->height(), oldest_referenceFrame->width(), CV_32F, const_cast<float*>(oldest_referenceFrame->image(0)));
 		cv::Mat newest_refImage(newest_referenceFrame->height(), newest_referenceFrame->width(), CV_32F, const_cast<float*>(newest_referenceFrame->image(0)));
 		cv::Mat rfimg = 0.5f*oldest_refImage + 0.5f*newest_refImage;
 		rfimg.convertTo(debugImageStereoLines, CV_8UC1);
-		cv::cvtColor(debugImageStereoLines, debugImageStereoLines, CV_GRAY2RGB);
+#if OPENCV3
+	cv::cvtColor(debugImageStereoLines, debugImageStereoLines, cv::COLOR_GRAY2RGB);
+#else
+	cv::cvtColor(debugImageStereoLines, debugImageStereoLines, CV_GRAY2RGB);
+#endif
 	}
 
 	struct timeval tv_start, tv_end;
@@ -1238,7 +1246,11 @@ void DepthMap::createKeyFrame(Frame* new_keyframe)
 	{
 		cv::Mat keyFrameImage(new_keyframe->height(), new_keyframe->width(), CV_32F, const_cast<float*>(new_keyframe->image(0)));
 		keyFrameImage.convertTo(debugImageHypothesisPropagation, CV_8UC1);
-		cv::cvtColor(debugImageHypothesisPropagation, debugImageHypothesisPropagation, CV_GRAY2RGB);
+#if OPENCV3
+cv::cvtColor(debugImageHypothesisPropagation, debugImageHypothesisPropagation, cv::COLOR_GRAY2RGB);
+#else
+ cv::cvtColor(debugImageDepth, debugImageDepth, CV_GRAY2RGB);
+#endif
 	}
 
 
@@ -1403,7 +1415,11 @@ int DepthMap::debugPlotDepthMap()
 
 	cv::Mat keyFrameImage(activeKeyFrame->height(), activeKeyFrame->width(), CV_32F, const_cast<float*>(activeKeyFrameImageData));
 	keyFrameImage.convertTo(debugImageDepth, CV_8UC1);
+#if OPENCV3
+	cv::cvtColor(debugImageHypothesisPropagation, debugImageHypothesisPropagation, cv::COLOR_GRAY2RGB);
+#else
 	cv::cvtColor(debugImageDepth, debugImageDepth, CV_GRAY2RGB);
+#endif
 
 	// debug plot & publish sparse version?
 	int refID = referenceFrameByID_offset;

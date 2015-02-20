@@ -16,10 +16,16 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   roscpp
   rosbag
+  cmake_modules
 )
 
 find_package(Eigen REQUIRED)
 find_package(X11 REQUIRED)
+find_package(OpenCV REQUIRED)
+if (OpenCV_VERSION VERSION_EQUAL "3")
+ add_definitions("-DOPENCV3=1")
+endif()
+ MESSAGE(STATUS "using Opencv version " OpenCV_VERSION)
 include(cmake/FindG2O.cmake)
 include(cmake/FindSuiteParse.cmake)
 
@@ -97,7 +103,7 @@ include_directories(
 
 # build shared library.
 add_library(lsdslam SHARED ${SOURCE_FILES})
-target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} csparse cxsparse )
+target_link_libraries(lsdslam ${FABMAP_LIB} ${G2O_LIBRARIES} ${catkin_LIBRARIES} csparse cxsparse X11)
 #rosbuild_link_boost(lsdslam thread)
 
 

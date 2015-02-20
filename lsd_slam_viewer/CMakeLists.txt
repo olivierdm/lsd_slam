@@ -10,8 +10,7 @@ project(lsd_slam_viewer)
 set(CMAKE_BUILD_TYPE Release)
 
 ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/thirdparty/Sophus)
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake )
 
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
@@ -21,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
   rosbag
   message_generation
   roslib
+  cmake_modules
 )
 
 find_package(OpenGL REQUIRED)
