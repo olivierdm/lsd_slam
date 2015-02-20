@@ -1249,7 +1249,7 @@ void DepthMap::createKeyFrame(Frame* new_keyframe)
 #if OPENCV3
 cv::cvtColor(debugImageHypothesisPropagation, debugImageHypothesisPropagation, cv::COLOR_GRAY2RGB);
 #else
- cv::cvtColor(debugImageDepth, debugImageDepth, CV_GRAY2RGB);
+ cv::cvtColor(debugImageHypothesisPropagation, debugImageHypothesisPropagation, CV_GRAY2RGB);
 #endif
 	}
 
@@ -1416,7 +1416,7 @@ int DepthMap::debugPlotDepthMap()
 	cv::Mat keyFrameImage(activeKeyFrame->height(), activeKeyFrame->width(), CV_32F, const_cast<float*>(activeKeyFrameImageData));
 	keyFrameImage.convertTo(debugImageDepth, CV_8UC1);
 #if OPENCV3
-	cv::cvtColor(debugImageHypothesisPropagation, debugImageHypothesisPropagation, cv::COLOR_GRAY2RGB);
+	cv::cvtColor(debugImageDepth, debugImageDepth, cv::COLOR_GRAY2RGB);
 #else
 	cv::cvtColor(debugImageDepth, debugImageDepth, CV_GRAY2RGB);
 #endif
