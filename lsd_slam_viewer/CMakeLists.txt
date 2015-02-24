@@ -85,3 +85,14 @@ target_link_libraries(viewer ${QGLViewer_LIBRARIES}
 #			     GL glut GLU
 #		      )
 
+## Mark executables and/or libraries for installation
+ install(TARGETS viewer
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
+ install(DIRECTORY src/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+   FILES_MATCHING PATTERN "*.h"
+#   PATTERN ".svn" EXCLUDE
+ )
