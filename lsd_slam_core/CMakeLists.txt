@@ -25,7 +25,7 @@ find_package(OpenCV REQUIRED)
 if (OpenCV_VERSION VERSION_EQUAL "3")
  add_definitions("-DOPENCV3=1")
 endif()
- MESSAGE(STATUS "using Opencv version " OpenCV_VERSION)
+ MESSAGE(STATUS "using Opencv version " ${OpenCV_VERSION})
 include(cmake/FindG2O.cmake)
 include(cmake/FindSuiteParse.cmake)
 
