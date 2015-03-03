@@ -47,7 +47,7 @@ void KeyFrameGraphDisplay::draw()
 
 	// draw keyframes
 	float color[3] = {0,0,1};
-	for(unsigned int i=0;i<keyframes.size();i++)
+	for(std::size_t i=0;i<keyframes.size();i++)
 	{
 		if(showKFCameras)
 			keyframes[i]->drawCam(lineTesselation, color);
@@ -63,7 +63,7 @@ void KeyFrameGraphDisplay::draw()
 		printf("Flushing Pointcloud to %s!\n", (ros::package::getPath("lsd_slam_viewer")+"/pc_tmp.ply").c_str());
 		std::ofstream f((ros::package::getPath("lsd_slam_viewer")+"/pc_tmp.ply").c_str());
 		int numpts = 0;
-		for(unsigned int i=0;i<keyframes.size();i++)
+		for(std::size_t i=0;i<keyframes.size();i++)
 		{
 			if((int)i > cutFirstNKf)
 				numpts += keyframes[i]->flushPC(&f);
@@ -87,7 +87,11 @@ void KeyFrameGraphDisplay::draw()
 		f2.close();
 		f3.close();
 
-		system(("rm "+ros::package::getPath("lsd_slam_viewer")+"/pc_tmp.ply").c_str());
+		int systemRet =system(("rm "+ros::package::getPath("lsd_slam_viewer")+"/pc_tmp.ply").c_str());
+		if(systemRet==-1)
+		{
+			printf("Removing temp file failed\n");
+		}
 		flushPointcloud = false;
 		printf("Done Flushing Pointcloud with %d points!\n", numpts);
 
@@ -98,7 +102,7 @@ void KeyFrameGraphDisplay::draw()
 	{
 		int totalPoint = 0;
 		int visPoints = 0;
-		for(unsigned int i=0;i<keyframes.size();i++)
+		for(std::size_t i=0;i<keyframes.size();i++)
 		{
 			totalPoint += keyframes[i]->totalPoints;
 			visPoints += keyframes[i]->displayedPoints;
@@ -117,7 +121,7 @@ void KeyFrameGraphDisplay::draw()
 		// draw constraints
 		glLineWidth(lineTesselation);
 		glBegin(GL_LINES);
-		for(unsigned int i=0;i<constraints.size();i++)
+		for(std::size_t i=0;i<constraints.size();i++)
 		{
 			if(constraints[i].from == 0 || constraints[i].to == 0)
 				continue;
@@ -162,7 +166,7 @@ void KeyFrameGraphDisplay::addGraphMsg(lsd_slam_viewer::keyframeGraphMsgConstPtr
 	constraints.resize(msg->numConstraints);
 	assert(msg->constraintsData.size() == sizeof(GraphConstraint)*msg->numConstraints);
 	GraphConstraint* constraintsIn = (GraphConstraint*)msg->constraintsData.data();
-	for(int i=0;i<msg->numConstraints;i++)
+	for(std::size_t i=0;i<msg->numConstraints;i++)
 	{
 		constraints[i].err = constraintsIn[i].err;
 		constraints[i].from = 0;
