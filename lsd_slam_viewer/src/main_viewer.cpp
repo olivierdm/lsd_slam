@@ -88,8 +88,7 @@ void rosThreadLoop( int argc, char** argv )
 
 	//glutInit(&argc, argv);
 
-	ros::init(argc, argv, "viewer");
-	ROS_INFO("lsd_slam_viewer started");
+	
 
 	dynamic_reconfigure::Server<lsd_slam_viewer::LSDSLAMViewerParamsConfig> srv;
 	srv.setCallback(dynConfCb);
@@ -113,7 +112,7 @@ void rosThreadLoop( int argc, char** argv )
 
 void rosFileLoop( int argc, char** argv )
 {
-	ros::init(argc, argv, "viewer");
+	
 	dynamic_reconfigure::Server<lsd_slam_viewer::LSDSLAMViewerParamsConfig> srv;
 	srv.setCallback(dynConfCb);
 
@@ -172,6 +171,9 @@ int main( int argc, char** argv )
 	viewer->show();
 
 	boost::thread rosThread;
+
+	ros::init(argc, argv, "viewer");
+	ROS_INFO("lsd_slam_viewer started");
 
 	if(argc > 1)
 	{
