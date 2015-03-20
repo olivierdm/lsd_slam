@@ -20,6 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Eigen REQUIRED)
+add_definitions(${EIGEN_DEFINITIONS})
 find_package(X11 REQUIRED)
 find_package(OpenCV REQUIRED)
 if (OpenCV_VERSION VERSION_EQUAL "3")
@@ -93,7 +94,7 @@ set(SOURCE_FILES
 
 include_directories(
   include
-  ${EIGEN3_INCLUDE_DIR}
+  ${EIGEN_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/thirdparty/Sophus
   ${CSPARSE_INCLUDE_DIR} #Has been set by SuiteParse

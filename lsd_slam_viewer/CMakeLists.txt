@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.4.6)
+cmake_minimum_required(VERSION 2.8.7)
 project(lsd_slam_viewer)
 
 # Set the build type. Options are:
@@ -8,8 +8,6 @@ project(lsd_slam_viewer)
 #  RelWithDebInfo : w/ debug symbols, w/ optimization
 #  MinSizeRel : w/o debug symbols, w/ optimization, stripped binaries
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
-
-ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/thirdparty/Sophus)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake )
 
 find_package(catkin REQUIRED COMPONENTS
@@ -31,10 +29,13 @@ find_package(Eigen REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS thread)
 
-include_directories(${QGLVIEWER_INCLUDE_DIR}
+include_directories(${EIGEN_INCLUDE_DIRS}
+		    ${QGLVIEWER_INCLUDE_DIR}
 		    ${catkin_INCLUDE_DIRS} 
 		    ${EIGEN_INCLUDE_DIR}
 		    ${QT_INCLUDES} )
+
+add_definitions(${EIGEN_DEFINITIONS})
 
 # SSE flags
 set(CMAKE_CXX_FLAGS
@@ -48,6 +49,10 @@ generate_dynamic_reconfigure_options(
   cfg/LSDSLAMViewerParams.cfg
 )
 
+catkin_package(
+  DEPENDS opencv
+  CATKIN_DEPENDS  cv_bridge
+)
 
 # Sources files
 set(SOURCE_FILES         
@@ -88,7 +93,7 @@ target_link_libraries(viewer ${QGLViewer_LIBRARIES}
 ## Mark executables and/or libraries for installation
  install(TARGETS viewer
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
  install(DIRECTORY src/
