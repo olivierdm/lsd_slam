@@ -64,7 +64,15 @@ IF(OPENCV2_FOUND)
 		TARGET_LINK_LIBRARIES(openFABMAP opencv_highgui opencv_core opencv_features2d opencv_imgproc opencv_nonfree)
 	ENDIF(WIN32)
 ENDIF(OPENCV2_FOUND)
-
+#install targets for library and trainingdata
+install(TARGETS openFABMAP
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+ )
+ install(DIRECTORY thirdparty/openFabMap/trainingdata/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/thirdparty/openFabMap/trainingdata/
+   FILES_MATCHING PATTERN "*.yml"
+#   PATTERN ".svn" EXCLUDE
+ )
 
 ############ openFABMAPcli executable ##################
 # if(OPENCV2_FOUND)

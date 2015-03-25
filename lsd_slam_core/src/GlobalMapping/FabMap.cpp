@@ -36,7 +36,6 @@ namespace lsd_slam
 FabMap::FabMap()
 {
 	valid = false;
-	
 	std::string fabmapTrainDataPath = packagePath + "thirdparty/openFabMap/trainingdata/StLuciaShortTraindata.yml";
 	std::string vocabPath = packagePath + "thirdparty/openFabMap/trainingdata/StLuciaShortVocabulary.yml";
 	std::string chowliutreePath = packagePath + "thirdparty/openFabMap/trainingdata/StLuciaShortTree.yml";
@@ -78,7 +77,7 @@ FabMap::FabMap()
 	int options = 0;
 	options |= of2::FabMap::SAMPLED;
 	options |= of2::FabMap::CHOW_LIU;
-	fabMap = new of2::FabMap2(clTree, 0.39, 0, options);
+	fabMap = cv::makePtr<of2::FabMap2>(clTree, 0.39, 0, options);
 	//add the training data for use with the sampling method
 	fabMap->addTraining(fabmapTrainData);
 	
@@ -96,7 +95,7 @@ FabMap::FabMap()
 	
 	//use a FLANN matcher to generate bag-of-words representations
 	cv::Ptr<cv::DescriptorMatcher> matcher = cv::DescriptorMatcher::create("FlannBased"); // alternative: "BruteForce"
-	bide = new cv::BOWImgDescriptorExtractor(extractor, matcher);
+	bide = cv::makePtr<cv::BOWImgDescriptorExtractor>(extractor, matcher);
 	bide->setVocabulary(vocabulary);
 	
 	printConfusionMatrix = false;

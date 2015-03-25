@@ -30,7 +30,7 @@ namespace lsd_slam
 
 
 TrackableKeyFrameSearch::TrackableKeyFrameSearch(KeyFrameGraph* graph, int w, int h, Eigen::Matrix3f K)
-: graph(graph)
+: fabMap(),graph(graph)
 {
 	tracker = new SE3Tracker(w,h,K);
 
