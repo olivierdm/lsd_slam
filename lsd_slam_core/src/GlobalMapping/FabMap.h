@@ -21,12 +21,14 @@
 #ifdef HAVE_FABMAP
 #pragma once
 #include <opencv2/core/core.hpp>
-
+#include <opencv2/features2d.hpp>
+#include <opencv2/xfeatures2d.hpp>
+//#include <opencv2/xfeatures2d/nonfree.hpp>
 namespace of2 {
 	class FabMap;
 }
 namespace cv {
-	class FeatureDetector;
+	//class FeatureDetector;
 	class BOWImgDescriptorExtractor;
 }
 
@@ -68,8 +70,8 @@ public:
 private:
 	int nextImageID;
 	cv::Ptr<cv::FeatureDetector> detector;
-	cv::Ptr<cv::BOWImgDescriptorExtractor> bide;
-	cv::Ptr<of2::FabMap> fabMap;
+	cv::BOWImgDescriptorExtractor* bide;
+	of2::FabMap* fabMap;
 	
 	bool printConfusionMatrix;
 	cv::Mat confusionMat;
