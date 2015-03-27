@@ -21,6 +21,7 @@
 #include "ROSOutput3DWrapper.h"
 #include "util/SophusUtil.h"
 #include <ros/ros.h>
+#include <ros/time.h>
 #include "util/settings.h"
 
 
@@ -118,6 +119,9 @@ void ROSOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 	fMsg.id = kf->id();
 	fMsg.time = kf->timestamp();
+	ros::Time stamp;
+	stamp.fromSec(kf->timestamp());
+	fMsg.header.stamp=stamp;
 	fMsg.isKeyframe = false;
 
 
