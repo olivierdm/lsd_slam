@@ -68,7 +68,7 @@ ENDIF(OPENCV2_FOUND)
 install(TARGETS openFABMAP
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
  )
- install(DIRECTORY thirdparty/openFabMap/trainingdata/
+ install(DIRECTORY trainingdata/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/thirdparty/openFabMap/trainingdata/
    FILES_MATCHING PATTERN "*.yml"
 #   PATTERN ".svn" EXCLUDE
