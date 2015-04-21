@@ -13,6 +13,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake )
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   dynamic_reconfigure
+  std_msgs
   sensor_msgs
   roscpp
   rosbag
@@ -43,7 +44,7 @@ set(CMAKE_CXX_FLAGS
 )
 
 add_message_files(DIRECTORY msg FILES keyframeMsg.msg keyframeGraphMsg.msg)
-generate_messages(DEPENDENCIES)
+generate_messages(DEPENDENCIES std_msgs sensor_msgs)
 
 generate_dynamic_reconfigure_options(
   cfg/LSDSLAMViewerParams.cfg
@@ -51,7 +52,9 @@ generate_dynamic_reconfigure_options(
 
 catkin_package(
   DEPENDS opencv
-  CATKIN_DEPENDS  cv_bridge
+  CATKIN_DEPENDS
+  cv_bridge
+message_runtime
 )
 
 # Sources files
