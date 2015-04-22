@@ -963,6 +963,7 @@ void SlamSystem::trackFrame(uchar* image, unsigned int frameID, bool blockUntilM
 		unmappedTrackedFramesMutex.unlock();
 
 		manualTrackingLossIndicated = false;
+		fullResetRequested = true;
 		return;
 	}
 
