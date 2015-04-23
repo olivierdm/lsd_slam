@@ -35,6 +35,7 @@
 #include <g2o/core/robust_kernel_impl.h>
 #include "DataStructures/FrameMemory.h"
 #include "deque"
+#include <boost/thread/thread.hpp>
 
 // for mkdir
 #include <sys/types.h>
@@ -963,6 +964,8 @@ void SlamSystem::trackFrame(uchar* image, unsigned int frameID, bool blockUntilM
 		unmappedTrackedFramesMutex.unlock();
 
 		manualTrackingLossIndicated = false;
+		std::cout << "Sleeping for 2 seconds before re-initialization" << std::endl;
+		boost::this_thread::sleep( boost::posix_time::seconds(2) );
 		fullResetRequested = true;
 		return;
 	}
