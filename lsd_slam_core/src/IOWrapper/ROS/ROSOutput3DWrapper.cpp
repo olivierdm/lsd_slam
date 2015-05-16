@@ -58,6 +58,7 @@ ROSOutput3DWrapper::ROSOutput3DWrapper(int width, int height)
 
 	pose_channel = nh_.resolveName("lsd_slam/pose");
 	pose_publisher = nh_.advertise<geometry_msgs::PoseStamped>(pose_channel,1);
+  	service = nh_.advertiseService("resetlsd", &lsd_slam::ROSOutput3DWrapper::reset, this);
 
 
 	publishLvl=0;
@@ -66,7 +67,18 @@ ROSOutput3DWrapper::ROSOutput3DWrapper(int width, int height)
 ROSOutput3DWrapper::~ROSOutput3DWrapper()
 {
 }
-
+bool ROSOutput3DWrapper::reset(lsd_slam_core::ResetLSD::Request &req, lsd_slam_core::ResetLSD::Response &res)
+{
+	if(req.request)
+	{
+		fullResetRequested = true;
+		res.reset=true;
+		return true;
+	}else{
+		return false;
+	}
+	
+}
 
 void ROSOutput3DWrapper::publishKeyframe(Frame* f)
 {

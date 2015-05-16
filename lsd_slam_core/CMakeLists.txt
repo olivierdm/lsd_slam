@@ -17,6 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rosbag
   cmake_modules
+  message_generation
+  std_msgs
 )
 
 find_package(Eigen REQUIRED)
@@ -33,8 +35,14 @@ include(cmake/FindSuiteParse.cmake)
 message("-- CHOLMOD_INCLUDE_DIR : " ${CHOLMOD_INCLUDE_DIR})
 message("-- CSPARSE_INCLUDE_DIR : " ${CSPARSE_INCLUDE_DIR})
 message("-- G2O_INCLUDE_DIR : " ${G2O_INCLUDE_DIR})
-
-
+add_service_files(
+ FILES
+ ResetLSD.srv
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 generate_dynamic_reconfigure_options(
   cfg/LSDDebugParams.cfg

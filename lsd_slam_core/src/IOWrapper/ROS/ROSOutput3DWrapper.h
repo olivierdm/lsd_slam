@@ -22,7 +22,7 @@
 
 #include <ros/ros.h>
 #include "IOWrapper/Output3DWrapper.h"
-
+#include "lsd_slam_core/ResetLSD.h"
 
 namespace lsd_slam
 {
@@ -82,7 +82,7 @@ public:
 	
 private:
 	int width, height;
-
+	bool reset(lsd_slam_core::ResetLSD::Request&, lsd_slam_core::ResetLSD::Response&);
 	std::string liveframe_channel;
 	ros::Publisher liveframe_publisher;
 
@@ -94,7 +94,7 @@ private:
 
 	std::string debugInfo_channel;
 	ros::Publisher debugInfo_publisher;
-
+	ros::ServiceServer service;
 
 	std::string pose_channel;
 	ros::Publisher pose_publisher;
