@@ -75,7 +75,8 @@ bool ROSOutput3DWrapper::reset(lsd_slam_core::ResetLSD::Request &req, lsd_slam_c
 		res.reset=true;
 		return true;
 	}else{
-		return false;
+		res.reset=false;
+		return true;
 	}
 	
 }

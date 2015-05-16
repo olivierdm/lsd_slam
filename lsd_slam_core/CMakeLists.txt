@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   image_transport
   roscpp
+  rospy
   rosbag
   cmake_modules
   message_generation
@@ -52,7 +53,8 @@ generate_dynamic_reconfigure_options(
 catkin_package(
   LIBRARIES lsdslam
   DEPENDS Eigen SuiteSparse
-  CATKIN_DEPENDS libg2o 
+  CATKIN_DEPENDS libg2o
+  message_runtime
 )
 
 # FabMap

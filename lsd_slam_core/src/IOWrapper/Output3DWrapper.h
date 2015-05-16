@@ -46,9 +46,6 @@ public:
 	virtual ~Output3DWrapper() {};
 
 
-
-
-
 	virtual void publishKeyframeGraph(KeyFrameGraph* graph) {};
 
 	// publishes a keyframe. if that frame already existis, it is overwritten, otherwise it is added.
